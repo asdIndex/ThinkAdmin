@@ -1,0 +1,144 @@
+{extend name='admin@public/content'}
+
+{block name="button"}
+<!--{if auth("$classuri/add")}-->
+<button data-modal='{:url("$classuri/add")}' data-title="添加用户" class='layui-btn layui-btn-sm'>添加用户</button>
+<!--{/if}-->
+<!--{if auth("$classuri/del")}-->
+<button data-update data-field='delete' data-action='{:url("$classuri/del")}' class='layui-btn layui-btn-sm layui-btn-danger'>删除用户</button>
+<!--{/if}-->
+{/block}
+
+{block name="content"}
+
+<!-- 表单搜索 开始 -->
+<form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get">
+
+    <!-- <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">用户账号</label>
+        <div class="layui-input-inline">
+            <input name="username" value="{$Think.get.username|default=''}" placeholder="请输入用户名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">联系手机</label>
+        <div class="layui-input-inline">
+            <input name="phone" value="{$Think.get.phone|default=''}" placeholder="请输入联系手机" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">电子邮箱</label>
+        <div class="layui-input-inline">
+            <input name="mail" value="{$Think.get.mail|default=''}" placeholder="请输入电子邮箱" class="layui-input">
+        </div>
+    </div>-->
+
+    <div class="layui-form-item layui-inline">
+        <label class="layui-form-label">搜索框</label>
+        <div class="layui-input-inline">
+            <input name="date" id='range-date' value="{$Think.get.date|default=''}" placeholder="请输入内容" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-inline">
+        <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> 搜 索</button>
+    </div>
+    
+</form>
+<script>
+    window.laydate.render({range: true, elem: '#range-date'});
+</script>
+<!-- 表单搜索 结束 -->
+
+<form onsubmit="return false;" data-auto="true" method="post">
+    <!--{empty name='list'}-->
+    <p class="help-block text-center well">没 有 记 录 哦！</p>
+    <!--{else}-->
+    <input type="hidden" value="resort" name="action">
+    <table class="layui-table" lay-skin="line">
+        <thead>
+        <tr><!-- ::-webkit-scrollbar{width:3px;height:13px} console.css 23行 -->
+            <th class='text-left nowrap'>主机mac地址</th>
+            <th class='text-left nowrap'>1号虚拟机mac地址</th>
+            <th class='text-left nowrap'>2号虚拟机mac地址</th>
+            <th class='text-left nowrap'>CPU型号</th>
+            <th class='text-left nowrap'>第1条内存的品牌</th>
+            <th class='text-left nowrap'>第2条内存的品牌</th>
+            <th class='text-left nowrap'>第3条内存的品牌</th>
+            <th class='text-left nowrap'>第4条内存的品牌</th>
+            <th class='text-left nowrap'>第1条内存的序列号</th>
+            <th class='text-left nowrap'>第2条内存的序列号</th>
+            <th class='text-left nowrap'>第3条内存的序列号</th>
+            <th class='text-left nowrap'>第4条内存的序列号</th>
+            <th class='text-left nowrap'>第1张显卡的ID</th>
+            <th class='text-left nowrap'>第2张显卡的ID</th>
+            <th class='text-left nowrap'>第1个硬盘的型号</th>
+            <th class='text-left nowrap'>第2个硬盘的型号</th>
+            <th class='text-left nowrap'>第1个硬盘的序列号</th>
+            <th class='text-left nowrap'>第2个硬盘的序列号</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--{foreach $list as $key=>$vo}-->
+        <tr>
+            <td class='text-left nowrap'>{$vo.hostmac}</td>
+            <td class='text-left nowrap'>
+                {$vo.machine_id||raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.vm2mac|default="<span class='color-desc'>只有一个虚拟机</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.cpu|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.ram1_manufacturer|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.ram2_manufacturer|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.ram3_manufacturer|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.ram4_manufacturer|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.ram1_sn|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.ram2_sn|default="<span class='color-desc'>无</span>"|raw}
+            <td class='text-left nowrap'>
+                {$vo.ram3_sn|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.ram4_sn|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+				{$vo.gpu1_id|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.gpu2_id|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+				{$vo.hd1_model|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.hd2_model|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+				{$vo.hd1_sn|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+            <td class='text-left nowrap'>
+                {$vo.hd2_sn|default="<span class='color-desc'>无</span>"|raw}
+            </td>
+        </tr>
+        <!--{/foreach}-->
+        </tbody>
+    </table>
+    {if isset($page)}<p>{$page|raw}</p>{/if}
+    <!--{/empty}-->
+</form>
+{/block}

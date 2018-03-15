@@ -14,7 +14,7 @@
 
 // 模板常量声明
 $appRoot = app('request')->root();
-$uriRoot = rtrim(preg_match('/\.php$/', $appRoot) ? dirname($appRoot) : $appRoot, '/');
+$uriRoot = rtrim(preg_match('/\.php$/', $appRoot) ? dirname($appRoot) : $appRoot, '\\/');
 
 return [
     // 模板引擎类型 支持 php think 支持扩展
@@ -40,4 +40,4 @@ return [
         '__STATIC__' => $uriRoot . "/static",
     ],
 ];
-
+//stripslashes($uriRoot)
