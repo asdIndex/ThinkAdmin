@@ -56,4 +56,24 @@ class LogService
         return self::db()->insert($data) !== false;
     }
 
+    /**
+     * afun写入操作日志
+     * @param string $action
+     * @param string $content
+     * @return bool
+     */
+    public static function afunWrite($action = '行为', $content = "内容描述")
+    {
+        $request = app('request');
+        $node = strtolower(join('/', [$request->module(), $request->controller(), $request->action()]));
+        $data = [
+            'ip'       => $request->ip(),
+            'node'     => $node,
+            'action'   => $action,
+            'content'  => $content,
+            'username' => session('user.username') . '',
+        ];
+        return Db::table('afun_log')->insert($data) !== false;
+    }
+    
 }

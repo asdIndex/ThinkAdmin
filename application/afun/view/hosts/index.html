@@ -34,11 +34,26 @@
             <input name="mail" value="{$Think.get.mail|default=''}" placeholder="请输入电子邮箱" class="layui-input">
         </div>
     </div>-->
-
+	<div class="layui-form-item layui-inline">
+		<button data-update data-field='status' data-value='2' data-action='{:url("$classuri/getStatus")}' class="btns blueColor">出租</button>
+		<button data-update data-field='status' data-value='1' data-action='{:url("$classuri/getStatus")}' class="btns blueColor">收回</button> 
+		<button data-update data-field='status' data-value='3' data-action='{:url("$classuri/getStatus")}' class="btns blueColor">返厂</button>
+		<!-- <button data-update data-field='delete' data-action='{:url("$classuri/del")}' class="btns blueColor">锁定</button>
+		<button data-update data-field='delete' data-action='{:url("$classuri/del")}' class="btns blueColor">解锁</button>  -->
+    </div>
     <div class="layui-form-item layui-inline">
-        <label class="layui-form-label">搜索框</label>
+        <label class="layui-form-label">状态</label>
         <div class="layui-input-inline">
-            <input name="date" id='range-date' value="{$Think.get.date|default=''}" placeholder="请输入内容" class="layui-input">
+            <select name='status' class='block layui-select' lay-search="">
+            	<option value=''> - 所有状态 -</option>
+                <!--{foreach $status as $key => $action}-->
+                <!--{if $key==$Think.get.status}-->
+                <option selected="selected" value='{$key}'>{$action}</option>
+                <!--{else}-->
+                <option value='{$key}'>{$action}</option>
+                <!--{/if}-->
+                <!--{/foreach}-->
+            </select>
         </div>
     </div>
 
@@ -60,18 +75,20 @@
     <table class="layui-table" lay-skin="line">
         <thead>
         <tr><!-- ::-webkit-scrollbar{width:3px;height:13px} console.css 23行 -->
+        	<th class='text-left nowrap'></th>
+        	<th class='text-left nowrap'>主机状态</th>
             <th class='text-left nowrap'>主机mac地址</th>
             <th class='text-left nowrap'>1号虚拟机mac地址</th>
             <th class='text-left nowrap'>2号虚拟机mac地址</th>
             <th class='text-left nowrap'>CPU型号</th>
             <th class='text-left nowrap'>第1条内存的品牌</th>
             <th class='text-left nowrap'>第2条内存的品牌</th>
-            <th class='text-left nowrap'>第3条内存的品牌</th>
-            <th class='text-left nowrap'>第4条内存的品牌</th>
+            <!-- <th class='text-left nowrap'>第3条内存的品牌</th>
+            <th class='text-left nowrap'>第4条内存的品牌</th> -->
             <th class='text-left nowrap'>第1条内存的序列号</th>
             <th class='text-left nowrap'>第2条内存的序列号</th>
-            <th class='text-left nowrap'>第3条内存的序列号</th>
-            <th class='text-left nowrap'>第4条内存的序列号</th>
+            <!-- <th class='text-left nowrap'>第3条内存的序列号</th>
+            <th class='text-left nowrap'>第4条内存的序列号</th> -->
             <th class='text-left nowrap'>第1张显卡的ID</th>
             <th class='text-left nowrap'>第2张显卡的ID</th>
             <th class='text-left nowrap'>第1个硬盘的型号</th>
@@ -83,6 +100,19 @@
         <tbody>
         <!--{foreach $list as $key=>$vo}-->
         <tr>
+        	<td class='list-table-check-td'>
+                <input class="list-check-box" value='{$vo.hostmac}' type='checkbox'>
+            </td>
+        	<td class='text-left'>
+        		<div class='nowrap btns 
+        		{switch vo.status}
+        		{case 1}greenColor{/case}
+        		{case 2}redColor {/case}
+        		{case 3}backColor {/case}
+        		{default /}
+        		 {/switch}
+        		'>{$vo.status_text}</div>
+       		</td>
             <td class='text-left nowrap'>{$vo.hostmac}</td>
             <td class='text-left nowrap'>
                 {$vo.machine_id||raw}
@@ -99,23 +129,24 @@
             <td class='text-left nowrap'>
                 {$vo.ram2_manufacturer|default="<span class='color-desc'>无</span>"|raw}
             </td>
-            <td class='text-left nowrap'>
+            <!-- <td class='text-left nowrap'>
                 {$vo.ram3_manufacturer|default="<span class='color-desc'>无</span>"|raw}
             </td>
             <td class='text-left nowrap'>
                 {$vo.ram4_manufacturer|default="<span class='color-desc'>无</span>"|raw}
-            </td>
+            </td> -->
             <td class='text-left nowrap'>
                 {$vo.ram1_sn|default="<span class='color-desc'>无</span>"|raw}
             </td>
             <td class='text-left nowrap'>
                 {$vo.ram2_sn|default="<span class='color-desc'>无</span>"|raw}
-            <td class='text-left nowrap'>
+            </td>
+            <!-- <td class='text-left nowrap'>
                 {$vo.ram3_sn|default="<span class='color-desc'>无</span>"|raw}
             </td>
             <td class='text-left nowrap'>
                 {$vo.ram4_sn|default="<span class='color-desc'>无</span>"|raw}
-            </td>
+            </td> -->
             <td class='text-left nowrap'>
 				{$vo.gpu1_id|default="<span class='color-desc'>无</span>"|raw}
             </td>

@@ -41,6 +41,8 @@ require.config({
         'bootstrap.multiselect': ['plugs/bootstrap-multiselect/bootstrap-multiselect'],
         // distpicker
         'distpicker': ['plugs/distpicker/distpicker'],
+		//echart
+        'echarts': ['plugs/jquery/echarts.min'],
     },
     shim: {
         // open-source
@@ -51,6 +53,8 @@ require.config({
         'bootstrap.typeahead': {deps: ['bootstrap']},
         'bootstrap.multiselect': {deps: ['bootstrap', 'css!' + baseRoot + 'plugs/bootstrap-multiselect/bootstrap-multiselect.css']},
         'distpicker': {deps: [baseRoot + 'plugs/distpicker/distpicker.data.js']},
+		//echart
+		//'echarts': {exports:"echart",deps:[baseRoot + 'plugs/jquery/jquery.min.js']},
     },
     deps: ['json', 'bootstrap'],
     // 开启debug模式，不缓存资源

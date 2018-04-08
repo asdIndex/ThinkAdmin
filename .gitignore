@@ -7,3 +7,10 @@
 /nbproject
 /composer.lock
 /static/upload
+.settings/com.zend.php.remoteproject.core.prefs
+*.prefs
+.buildpath
+.project
+README.md
+README.md
+*.md

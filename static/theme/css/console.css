@@ -161,3 +161,26 @@ input[type=checkbox]:focus,input[type=radio]:focus{outline:none}
 .framework-body .form-search .layui-input-inline select{border-radius:0;padding:0 5px;height:32px;line-height:30px;width:100%}
 .framework-body .form-search .layui-form-select{border-radius:0}
 .framework-body .form-search .layui-form-select dl{top:31px;padding:0}
+
+
+/*主机列表状态展示*/
+.btns{
+	border: none;outline: none;cursor: pointer;width: 43px;height: 20px;color: #ffffff;
+	border-radius: 2px;font-family: Arial normal;font-size: 13px;text-align: center;
+}
+.greenColor{
+	background-color: #009900;
+}
+.redColor{
+	background-color: #FF3300;
+}
+.backColor{
+	background-color: #CC9900;
+}
+.keyColor{
+	background-color: #000000;
+}
+.blueColor{
+	background-color: #169BD5;
+	height: 30px;margin-right: 5px;
+}
